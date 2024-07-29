@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.input.TextFieldLineLimits
+import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -41,20 +43,15 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun Greeting(modifier: Modifier = Modifier) {
-    var value by remember { mutableStateOf(
-        TextFieldValue("A very long text that won't fit the screen in one line but will trigger a scroll so that you can debug the scroll handle bug")
-    ) }
+    val state = rememberTextFieldState("A very long text that won't fit the screen in one line but will trigger a scroll so that you can debug the scroll handle bug")
 
     BasicTextField(
         modifier = modifier
             .fillMaxWidth()
             .background(Color.LightGray)
             .padding(16.dp),
-        singleLine = true,
-        value = value,
-        onValueChange = {
-            value = it
-        }
+        lineLimits = TextFieldLineLimits.SingleLine,
+        state = state
     )
 }
 
